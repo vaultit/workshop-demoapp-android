@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.nixu.android.demoapp">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name=".DemoApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".LoggedInActivity"/>
+
+        <!-- token exchange activity in SSO library -->
+        <activity android:name="org.vaultit.mobilesso.mobilessosdk.TokenExchangeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat"
+            android:launchMode="singleTask" />
+
+        <!-- authorization request redirect from custom tabs authentication screen -->
+        <activity
+            android:name="net.openid.appauth.RedirectUriReceiverActivity"
+            android:launchMode="standard"
+            tools:node="replace">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="com.nixu.android.demoapp.login" />
+            </intent-filter>
+        </activity>
+
+        <!-- logout request redirect from custom tabs logout screen -->
+        <activity android:name="org.vaultit.mobilesso.mobilessosdk.RedirectUriReceiverActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="com.nixu.android.demoapp.logout" />
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>
